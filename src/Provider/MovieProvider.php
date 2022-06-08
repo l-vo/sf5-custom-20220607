@@ -15,8 +15,8 @@ class MovieProvider
 
     public function getOneMovie(string $type, string $value): Movie
     {
-        return dump($this->denormalizer->denormalize(
-            dump($this->consumer->consume($type, $value)),
+        return ($this->denormalizer->denormalize(
+            $this->consumer->consume($type, $value),
             Movie::class,
         ));
     }
