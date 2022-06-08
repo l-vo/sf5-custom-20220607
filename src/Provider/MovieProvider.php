@@ -4,20 +4,21 @@ namespace App\Provider;
 
 use App\Consumer\OMDbApiConsumer;
 use App\Entity\Movie;
-use App\Transformer\MovieTransformer;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class MovieProvider
 {
     public function __construct(
         private OMDbApiConsumer $consumer,
-        private MovieTransformer $transformer
+        private DenormalizerInterface $denormalizer,
     ) {}
 
     public function getOneMovie(string $type, string $value): Movie
     {
-        return $this->transformer->arrayToMovie(
-            $this->consumer->consume($type, $value)
-        );
+        return dump($this->denormalizer->denormalize(
+            dump($this->consumer->consume($type, $value)),
+            Movie::class,
+        ));
     }
 
     public function getById(string $id): Movie

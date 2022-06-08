@@ -6,6 +6,8 @@ use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -16,15 +18,19 @@ class Movie
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[SerializedName('Title')]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[SerializedName('Poster')]
     private $poster;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[SerializedName('Country')]
     private $country;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[SerializedName('Released')]
     private $releasedAt;
 
     #[ORM\Column(type: 'decimal', precision: 4, scale: 2)]
@@ -34,9 +40,11 @@ class Movie
     private $genres;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[SerializedName('imdbID')]
     private $omdbId;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[SerializedName('Rated')]
     private $rated;
 
     public function __construct()
@@ -153,6 +161,17 @@ class Movie
     public function setRated(string $rated): self
     {
         $this->rated = $rated;
+
+        return $this;
+    }
+
+
+    #[SerializedName('Genre')]
+    public function setGenreList(string $genreList): self
+    {
+        foreach (explode(', ', $genreList) as $genreName) {
+            $this->genres->add((new Genre())->setName($genreName));
+        }
 
         return $this;
     }
