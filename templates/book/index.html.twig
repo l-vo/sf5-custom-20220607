@@ -9,6 +9,9 @@
 
     Links:
     <ul>
+        {%  for book in books %}
+            <li><a href="{{ path('app_book_details', {id: book.id}) }}">{{ book.title }}</a></li>
+        {% endfor %}
         <li><a href="{{ path('app_book_create') }}">New Book</a></li>
     </ul>
 </div>

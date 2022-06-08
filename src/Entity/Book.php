@@ -35,9 +35,13 @@ class Book
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Comment::class, orphanRemoval: true)]
     private $comments;
 
+    #[ORM\Column(type: 'string', length: 20)]
+    private string $state;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->state = 'waiting';
     }
 
     public function getId(): ?int
@@ -109,6 +113,16 @@ class Book
         }
 
         return $this;
+    }
+
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): void
+    {
+        $this->state = $state;
     }
 
     public function removeComment(Comment $comment): self

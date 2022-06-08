@@ -26,7 +26,7 @@
                     </div>
                 </div>
             {% else %}
-                <p>No movies in database yet...</p>
+                <a href="{{ path('app_movie_details', { title: 'Dr Strange' }) }}">Dr Strange</a>
             {% endfor %}
         </div>
     </section>

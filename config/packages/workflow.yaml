@@ -1,0 +1,26 @@
+framework:
+    workflows:
+        book:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Book
+            initial_marking: waiting
+            places:
+                - waiting
+                - available
+                - borrowed
+            transitions:
+                to_waiting:
+                    from: borrowed
+                    to: waiting
+                to_available:
+                     from: waiting
+                     to: available
+                to_borrowed:
+                     from: available
+                     to: borrowed
