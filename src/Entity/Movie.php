@@ -18,15 +18,12 @@ class Movie
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[SerializedName('Title')]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[SerializedName('Poster')]
     private $poster;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[SerializedName('Country')]
     private $country;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -44,7 +41,6 @@ class Movie
     private $omdbId;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[SerializedName('Rated')]
     private $rated;
 
     public function __construct()
