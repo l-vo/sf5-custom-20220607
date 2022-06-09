@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="container w-50 pt-5">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans }}</div>
+            {% endif %}
+
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="json_login">{{ 'json_login'|trans }}</label>
+            <textarea id="json_login" name="json_login" cols="20" rows="5">
+{
+    "username": "{{ last_username }}",
+    "password": ""
+}
+            </textarea>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate_json') }}"
+            >
+            <br />
+
+            <button class="btn btn-lg btn-primary" type="submit">
+                Sign in
+            </button>
+        </form>
+    </div>
+{% endblock %}

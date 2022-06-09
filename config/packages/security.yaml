@@ -13,14 +13,21 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        memory_provider:
+            memory:
+                users:
+                    laurent: {password: '$2y$13$orPI3aRwAr/Y/qbX3Slq6uZpdEFFBgNWA.eApHvtLIYSS2.Mp1Qtm', roles: [ROLE_USER]}
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: app_user_provider
-            custom_authenticator: App\Security\LoginFormAuthenticator
+            provider: memory_provider
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
+                - App\Security\LoginJsonAuthenticator
+            entry_point: App\Security\LoginJsonAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -35,7 +42,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/movie/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
