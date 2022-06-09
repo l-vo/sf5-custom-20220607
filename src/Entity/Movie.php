@@ -20,7 +20,7 @@ class Movie
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $poster;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -36,11 +36,11 @@ class Movie
     #[ORM\ManyToMany(targetEntity: Genre::class, cascade: ['persist'])]
     private $genres;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[SerializedName('imdbID')]
     private $omdbId;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $rated;
 
     public function __construct()

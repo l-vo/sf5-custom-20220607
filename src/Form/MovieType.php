@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Movie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,7 @@ class MovieType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('poster')
+            ->add('poster', FileType::class, ['mapped' => false, 'required' => false])
             ->add('country')
             ->add('releasedAt', DateType::class, [
                 'widget' => 'single_text',
